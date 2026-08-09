@@ -1,7 +1,1 @@
-function setup() {
-    createCanvas(800, 600);
-}
-
-function draw() {
-    background(220);
-}
+// sketch.js desactivado por el momento para no generar canvas fuera de la grilla

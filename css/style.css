@@ -81,7 +81,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 220px;
+    aspect-ratio: 1 / 1;
+    width: 100%;
     position: relative;
     cursor: pointer;
     transition: transform 0.3s var(--transition-smooth), 
@@ -217,6 +218,7 @@ body {
     height: 85vh;
     max-width: 1000px;
     max-height: 800px;
+    aspect-ratio: auto;
     z-index: 100;
     cursor: default;
     background-color: #141720;
@@ -249,10 +251,6 @@ body {
     .grid-container {
         grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
-    }
-
-    .concept-card {
-        min-height: 260px;
     }
 }
 
