@@ -1,10 +1,10 @@
 /* ==========================================================================
    TP2 - Sistema de Signos (Multimedial 4)
-   Estilos base, Grilla Responsive 3x3 (Mobile First & Desktop) y Expansión
+   Estilos base, Grilla Responsive 3x3 (Sin Scroll / Fit-Viewport) y Expansión
    ========================================================================== */
 
 :root {
-    /* Paleta cromática sofisticada para diseño multimedial */
+    /* Paleta cromática para diseño multimedial */
     --bg-main: #0a0b0e;
     --bg-card: #12141a;
     --bg-card-hover: #1a1d26;
@@ -30,25 +30,30 @@
     box-sizing: border-box;
 }
 
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Evitar scroll en la pantalla principal */
+}
+
 body {
     background-color: var(--bg-main);
     color: var(--color-text-main);
     font-family: var(--font-family);
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
-    padding: 1.5rem 1rem;
+    padding: 0.75rem 1rem 1rem 1rem;
 }
 
-/* Header */
+/* Header Compacto */
 .app-header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
+    flex-shrink: 0;
 }
 
 .app-title {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--color-text-main);
@@ -56,18 +61,20 @@ body {
 }
 
 .app-subtitle {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: var(--color-text-muted);
-    margin-top: 0.25rem;
+    margin-top: 0.1rem;
 }
 
-/* Grilla (Mobile First) */
+/* Grilla Fit Viewport (3x3 en todo momento) */
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-    max-width: 1200px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0.5rem;
     width: 100%;
+    height: calc(100vh - 4.5rem);
+    max-width: 1200px;
     margin: 0 auto;
     flex: 1;
 }
@@ -76,27 +83,30 @@ body {
 .concept-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 1.25rem;
+    border-radius: 12px;
+    padding: 0.75rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    aspect-ratio: 1 / 1;
     width: 100%;
+    height: 100%;
     position: relative;
     cursor: pointer;
-    transition: transform 0.3s var(--transition-smooth), 
-                border-color 0.3s var(--transition-smooth),
-                box-shadow 0.3s var(--transition-smooth),
-                background-color 0.3s var(--transition-smooth);
+    transition: transform 0.35s var(--transition-smooth), 
+                border-color 0.35s var(--transition-smooth),
+                box-shadow 0.35s var(--transition-smooth),
+                background-color 0.35s var(--transition-smooth),
+                width 0.35s var(--transition-smooth),
+                height 0.35s var(--transition-smooth),
+                opacity 0.35s var(--transition-smooth);
     overflow: hidden;
 }
 
-.concept-card:hover {
-    transform: translateY(-4px);
+.concept-card:hover:not(.expanded) {
+    transform: translateY(-3px) scale(1.02);
     border-color: var(--border-hover);
     background-color: var(--bg-card-hover);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 /* Tags por Subsistema */
@@ -107,12 +117,12 @@ body {
 .card-header {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.15rem;
     z-index: 2;
 }
 
 .subsystem-tag {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--color-text-muted);
@@ -120,28 +130,31 @@ body {
 }
 
 .concept-name {
-    font-size: 1.35rem;
+    font-size: 0.95rem;
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.1;
 }
 
 .concept-desc {
-    font-size: 0.85rem;
+    font-size: 0.7rem;
     color: var(--color-text-muted);
     font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Canvas Wrapper para p5.js */
 .canvas-wrapper {
     flex: 1;
     width: 100%;
-    min-height: 100px;
-    margin: 0.75rem 0;
+    min-height: 0;
+    margin: 0.25rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    border-radius: 8px;
+    border-radius: 6px;
     background: rgba(0, 0, 0, 0.2);
 }
 
@@ -152,9 +165,9 @@ body {
 }
 
 .interaction-hint {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     color: var(--color-text-muted);
-    opacity: 0.7;
+    opacity: 0.6;
     transition: opacity 0.2s;
 }
 
@@ -195,11 +208,11 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(5, 6, 8, 0.75);
-    backdrop-filter: blur(8px);
+    background: rgba(5, 6, 8, 0.85);
+    backdrop-filter: blur(10px);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s var(--transition-smooth);
+    transition: opacity 0.35s var(--transition-smooth);
     z-index: 90;
 }
 
@@ -213,49 +226,103 @@ body {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) !important;
+    transform: translate(-50%, -50%) scale(1);
     width: 90vw;
     height: 85vh;
     max-width: 1000px;
     max-height: 800px;
-    aspect-ratio: auto;
     z-index: 100;
     cursor: default;
     background-color: #141720;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
     border-color: rgba(255, 255, 255, 0.3);
+    padding: 1.5rem;
+    animation: modalExpand 0.35s var(--transition-smooth) forwards;
+}
+
+@keyframes modalExpand {
+    0% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(0.85);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
 }
 
 .concept-card.expanded .close-btn {
     display: flex;
 }
 
+.concept-card.expanded .subsystem-tag {
+    font-size: 0.75rem;
+}
+
 .concept-card.expanded .concept-name {
     font-size: 2rem;
+}
+
+.concept-card.expanded .concept-desc {
+    font-size: 1rem;
+    white-space: normal;
 }
 
 .concept-card.expanded .interaction-hint {
     display: none;
 }
 
-/* Desktop Styles (Media Queries) */
+/* Ajustes Responsive para Pantallas Más Grandes (Tablet & Desktop) */
 @media (min-width: 768px) {
     body {
-        padding: 2.5rem 2rem;
+        padding: 1.25rem 2rem 1.5rem 2rem;
+    }
+
+    .app-header {
+        margin-bottom: 0.75rem;
     }
 
     .app-title {
-        font-size: 2rem;
+        font-size: 1.6rem;
+    }
+
+    .app-subtitle {
+        font-size: 0.85rem;
     }
 
     .grid-container {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
+        gap: 1rem;
+        height: calc(100vh - 6rem);
+    }
+
+    .concept-card {
+        padding: 1rem;
+        border-radius: 16px;
+    }
+
+    .subsystem-tag {
+        font-size: 0.65rem;
+    }
+
+    .concept-name {
+        font-size: 1.25rem;
+    }
+
+    .concept-desc {
+        font-size: 0.8rem;
+    }
+
+    .interaction-hint {
+        font-size: 0.75rem;
     }
 }
 
 @media (min-width: 1200px) {
     .grid-container {
-        gap: 1.75rem;
+        gap: 1.25rem;
+    }
+
+    .concept-name {
+        font-size: 1.4rem;
     }
 }
