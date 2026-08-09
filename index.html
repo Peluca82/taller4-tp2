@@ -2,7 +2,11 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0a0b0e">
     <title>TP2 - Sistema de Signos</title>
     <!-- Fuentes Google Fonts para estética de Diseño Multimedial -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,8 +17,15 @@
 </head>
 <body>
     <header class="app-header">
-        <h1 class="app-title">TP2: Sistema de Signos</h1>
-        <p class="app-subtitle">Representación Geométrica, Cinética y Reactiva</p>
+        <div class="header-titles">
+            <h1 class="app-title">TP2: Sistema de Signos</h1>
+            <p class="app-subtitle">Representación Geométrica, Cinética y Reactiva</p>
+        </div>
+        <button id="fullscreen-btn" class="fullscreen-btn" title="Pantalla Completa" aria-label="Pantalla completa">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+            </svg>
+        </button>
     </header>
 
     <main class="grid-container">
