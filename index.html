@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP2 - Sistema de Signos</title>
+    <!-- Fuentes Google Fonts para estética de Diseño Multimedial -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/p5.js"></script>
+</head>
+<body>
+    <header class="app-header">
+        <h1 class="app-title">TP2: Sistema de Signos</h1>
+        <p class="app-subtitle">Representación Geométrica, Cinética y Reactiva</p>
+    </header>
+
+    <main class="grid-container">
+        <!-- Bloque 1 -->
+        <article class="concept-card" data-subsystem="1" data-concept="memoria" id="card-memoria">
+            <button class="close-btn" aria-label="Cerrar vista">&times;</button>
+            <div class="card-header">
+                <span class="subsystem-tag">Bloque 1</span>
+                <h2 class="concept-name">Memoria</h2>
+                <span class="concept-desc">Como registro</span>
+            </div>
+            <div class="canvas-wrapper" id="canvas-container-memoria">
+                <!-- Aquí vivirá el canvas interactivo -->
+            </div>
+            <div class="card-footer">
+                <span class="interaction-hint">Haz clic para interactuar</span>
+            </div>
+        </article>
+
+        <article class="concept-card" data-subsystem="1" data-concept="herencia" id="card-herencia">
+            <button class="close-btn" aria-label="Cerrar vista">&times;</button>
+            <div class="card-header">
+                <span class="subsystem-tag">Bloque 1</span>
+                <h2 class="concept-name">Herencia</h2>
+                <span class="concept-desc">Como legado</span>
+            </div>
+            <div class="canvas-wrapper" id="canvas-container-herencia">
+                <!-- Aquí vivirá el canvas interactivo -->
+            </div>
+            <div class="card-footer">
+                <span class="interaction-hint">Haz clic para interactuar</span>
+            </div>
+        </article>
+
+        <article class="concept-card" data-subsystem="1" data-concept="caducidad" id="card-caducidad">
+            <button class="close-btn" aria-label="Cerrar vista">&times;</button>
+            <div class="card-header">
+                <span class="subsystem-tag">Bloque 1</span>
+                <h2 class="concept-name">Caducidad</h2>
+                <span class="concept-desc">Como lo perdido en el tránsito</span>
+            </div>
+            <div class="canvas-wrapper" id="canvas-container-caducidad">
+                <!-- Aquí vivirá el canvas interactivo -->
+            </div>
+            <div class="card-footer">
+                <span class="interaction-hint">Haz clic para interactuar</span>
+            </div>
+        </article>
+
+        <!-- Bloque 2 -->
+        <article class="concept-card" data-subsystem="2" data-concept="identidad" id="card-identidad">
+            <button class="close-btn" aria-label="Cerrar vista">&times;</button>
+            <div class="card-header">
+                <span class="subsystem-tag">Bloque 2</span>
+                <h2 class="concept-name">Identidad</h2>
+                <span class="concept-desc">Como afirmación de sí</span>
+            </div>
+            <div class="canvas-wrapper" id="canvas-container-identidad">
+                <!-- Aquí vivirá el canvas interactivo -->
+            </div>
+            <div class="card-footer">
+                <span class="interaction-hint">Haz clic para interactuar</span>
+            </div>
+        </article>
+
+        <article class="concept-card" data-subsystem="2" data-concept="empatia" id="card-empatia">
+            <button class="close-btn" aria-label="Cerrar vista">&times;</button>
+            <div class="card-header">
+                <span class="subsystem-tag">Bloque 2</span>
+                <h2 class="concept-name">Empatía</h2>
+                <span class="concept-desc">Como comprensión del otro</span>
+            </div>
+            <div class="canvas-wrapper" id="canvas-container-empatia">
+                <!-- Aquí vivirá el canvas interactivo -->
+            </div>
+            <div class="card-footer">
+                <span class="interaction-hint">Haz clic para interactuar</span>
+            </div>
+        </article>
+
+        <article class="concept-card" data-subsystem="2" data-concept="colaboracion" id="card-colaboracion">
+            <button class="close-btn" aria-label="Cerrar vista">&times;</button>
+            <div class="card-header">
+                <span class="subsystem-tag">Bloque 2</span>
+                <h2 class="concept-name">Colaboración</h2>
+                <span class="concept-desc">Como coexistencia de lo diverso</span>
+            </div>
+            <div class="canvas-wrapper" id="canvas-container-colaboracion">
+                <!-- Aquí vivirá el canvas interactivo -->
+            </div>
+            <div class="card-footer">
+                <span class="interaction-hint">Haz clic para interactuar</span>
+            </div>
+        </article>
+
+        <!-- Bloque 3 -->
+        <article class="concept-card" data-subsystem="3" data-concept="incertidumbre" id="card-incertidumbre">
+            <button class="close-btn" aria-label="Cerrar vista">&times;</button>
+            <div class="card-header">
+                <span class="subsystem-tag">Bloque 3</span>
+                <h2 class="concept-name">Incertidumbre</h2>
+                <span class="concept-desc">Como desconocimiento del devenir</span>
+            </div>
+            <div class="canvas-wrapper" id="canvas-container-incertidumbre">
+                <!-- Aquí vivirá el canvas interactivo -->
+            </div>
+            <div class="card-footer">
+                <span class="interaction-hint">Haz clic para interactuar</span>
+            </div>
+        </article>
+
+        <article class="concept-card" data-subsystem="3" data-concept="ansiedad" id="card-ansiedad">
+            <button class="close-btn" aria-label="Cerrar vista">&times;</button>
+            <div class="card-header">
+                <span class="subsystem-tag">Bloque 3</span>
+                <h2 class="concept-name">Ansiedad</h2>
+                <span class="concept-desc">Como pre-ocupación sobre el futuro</span>
+            </div>
+            <div class="canvas-wrapper" id="canvas-container-ansiedad">
+                <!-- Aquí vivirá el canvas interactivo -->
+            </div>
+            <div class="card-footer">
+                <span class="interaction-hint">Haz clic para interactuar</span>
+            </div>
+        </article>
+
+        <article class="concept-card" data-subsystem="3" data-concept="expectativa" id="card-expectativa">
+            <button class="close-btn" aria-label="Cerrar vista">&times;</button>
+            <div class="card-header">
+                <span class="subsystem-tag">Bloque 3</span>
+                <h2 class="concept-name">Expectativa</h2>
+                <span class="concept-desc">Como anticipación</span>
+            </div>
+            <div class="canvas-wrapper" id="canvas-container-expectativa">
+                <!-- Aquí vivirá el canvas interactivo -->
+            </div>
+            <div class="card-footer">
+                <span class="interaction-hint">Haz clic para interactuar</span>
+            </div>
+        </article>
+    </main>
+
+    <!-- Overlay de fondo cuando se expande una casilla -->
+    <div class="grid-overlay" id="grid-overlay"></div>
+
+    <script src="js/main.js"></script>
+    <script src="sketch.js"></script>
+</body>
+</html>

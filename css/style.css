@@ -1,0 +1,263 @@
+/* ==========================================================================
+   TP2 - Sistema de Signos (Multimedial 4)
+   Estilos base, Grilla Responsive 3x3 (Mobile First & Desktop) y Expansión
+   ========================================================================== */
+
+:root {
+    /* Paleta cromática sofisticada para diseño multimedial */
+    --bg-main: #0a0b0e;
+    --bg-card: #12141a;
+    --bg-card-hover: #1a1d26;
+    
+    --color-text-main: #f0f3f8;
+    --color-text-muted: #8a92a3;
+    
+    /* Subsistemas (Color Accent por bloque) */
+    --subsystem-1-accent: #ff4757; /* Memoria, Herencia, Caducidad */
+    --subsystem-2-accent: #2ed573; /* Identidad, Empatía, Colaboración */
+    --subsystem-3-accent: #1e90ff; /* Incertidumbre, Ansiedad, Expectativa */
+    
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.25);
+    
+    --font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--color-text-main);
+    font-family: var(--font-family);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    padding: 1.5rem 1rem;
+}
+
+/* Header */
+.app-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.app-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-text-main);
+    text-transform: uppercase;
+}
+
+.app-subtitle {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+}
+
+/* Grilla (Mobile First) */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    flex: 1;
+}
+
+/* Casillas / Cards */
+.concept-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 220px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s var(--transition-smooth), 
+                border-color 0.3s var(--transition-smooth),
+                box-shadow 0.3s var(--transition-smooth),
+                background-color 0.3s var(--transition-smooth);
+    overflow: hidden;
+}
+
+.concept-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-hover);
+    background-color: var(--bg-card-hover);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Tags por Subsistema */
+.concept-card[data-subsystem="1"] { border-top: 3px solid var(--subsystem-1-accent); }
+.concept-card[data-subsystem="2"] { border-top: 3px solid var(--subsystem-2-accent); }
+.concept-card[data-subsystem="3"] { border-top: 3px solid var(--subsystem-3-accent); }
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    z-index: 2;
+}
+
+.subsystem-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    font-weight: 600;
+}
+
+.concept-name {
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.concept-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+/* Canvas Wrapper para p5.js */
+.canvas-wrapper {
+    flex: 1;
+    width: 100%;
+    min-height: 100px;
+    margin: 0.75rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.card-footer {
+    display: flex;
+    justify-content: flex-end;
+    z-index: 2;
+}
+
+.interaction-hint {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.concept-card:hover .interaction-hint {
+    opacity: 1;
+}
+
+/* Botón para Cerrar (Solo en estado expandido) */
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--color-text-main);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    line-height: 1;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+/* Overlay sutil */
+.grid-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(5, 6, 8, 0.75);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s var(--transition-smooth);
+    z-index: 90;
+}
+
+.grid-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Estado Expandido (Full Screen / Modal View) */
+.concept-card.expanded {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+    width: 90vw;
+    height: 85vh;
+    max-width: 1000px;
+    max-height: 800px;
+    z-index: 100;
+    cursor: default;
+    background-color: #141720;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.concept-card.expanded .close-btn {
+    display: flex;
+}
+
+.concept-card.expanded .concept-name {
+    font-size: 2rem;
+}
+
+.concept-card.expanded .interaction-hint {
+    display: none;
+}
+
+/* Desktop Styles (Media Queries) */
+@media (min-width: 768px) {
+    body {
+        padding: 2.5rem 2rem;
+    }
+
+    .app-title {
+        font-size: 2rem;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+
+    .concept-card {
+        min-height: 260px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .grid-container {
+        gap: 1.75rem;
+    }
+}
