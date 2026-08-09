@@ -42,7 +42,7 @@ body {
     font-family: var(--font-family);
     display: flex;
     flex-direction: column;
-    padding: 0.75rem 1rem 1rem 1rem;
+    padding: 0.5rem 0.75rem 0.75rem 0.75rem;
 }
 
 /* Header Compacto */
@@ -52,7 +52,7 @@ body {
     align-items: center;
     max-width: 1200px;
     width: 100%;
-    margin: 0 auto 0.5rem auto;
+    margin: 0 auto 0.4rem auto;
     flex-shrink: 0;
 }
 
@@ -61,7 +61,7 @@ body {
 }
 
 .app-title {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--color-text-main);
@@ -69,9 +69,9 @@ body {
 }
 
 .app-subtitle {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     color: var(--color-text-muted);
-    margin-top: 0.1rem;
+    margin-top: 0.05rem;
 }
 
 /* Botón Fullscreen */
@@ -79,19 +79,22 @@ body {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border-color);
     color: var(--color-text-main);
-    padding: 0.4rem 0.6rem;
+    width: 32px;
+    height: 32px;
+    padding: 0;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    flex-shrink: 0;
 }
 
-.fullscreen-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--border-hover);
-    transform: scale(1.05);
+.fullscreen-btn svg {
+    display: block;
+    width: 16px;
+    height: 16px;
 }
 
 /* Grilla Fit Viewport (3x3 en todo momento) */
@@ -99,9 +102,9 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 0.5rem;
+    gap: 0.4rem;
     width: 100%;
-    height: calc(100vh - 4.5rem);
+    height: calc(100vh - 3.2rem);
     max-width: 1200px;
     margin: 0 auto;
     flex: 1;
@@ -111,8 +114,8 @@ body {
 .concept-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 0.75rem;
+    border-radius: 10px;
+    padding: 0.4rem 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -124,17 +127,28 @@ body {
                 border-color 0.35s var(--transition-smooth),
                 box-shadow 0.35s var(--transition-smooth),
                 background-color 0.35s var(--transition-smooth),
-                width 0.35s var(--transition-smooth),
-                height 0.35s var(--transition-smooth),
                 opacity 0.35s var(--transition-smooth);
     overflow: hidden;
 }
 
-.concept-card:hover:not(.expanded) {
-    transform: translateY(-3px) scale(1.02);
-    border-color: var(--border-hover);
-    background-color: var(--bg-card-hover);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+/* Hover solo en dispositivos con mouse real (Desktop) */
+@media (hover: hover) and (pointer: fine) {
+    .fullscreen-btn:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: var(--border-hover);
+        transform: scale(1.05);
+    }
+
+    .concept-card:hover:not(.expanded) {
+        transform: translateY(-3px) scale(1.02);
+        border-color: var(--border-hover);
+        background-color: var(--bg-card-hover);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .concept-card:hover .interaction-hint {
+        opacity: 1;
+    }
 }
 
 /* Tags por Subsistema */
@@ -145,26 +159,26 @@ body {
 .card-header {
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
+    gap: 0.05rem;
     z-index: 2;
 }
 
 .subsystem-tag {
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     color: var(--color-text-muted);
     font-weight: 600;
 }
 
 .concept-name {
-    font-size: 0.95rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    line-height: 1.1;
+    line-height: 1.05;
 }
 
 .concept-desc {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     color: var(--color-text-muted);
     font-style: italic;
     white-space: nowrap;
@@ -177,13 +191,13 @@ body {
     flex: 1;
     width: 100%;
     min-height: 0;
-    margin: 0.25rem 0;
+    margin: 0.2rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    border-radius: 6px;
-    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.25);
 }
 
 .card-footer {
@@ -193,28 +207,23 @@ body {
 }
 
 .interaction-hint {
-    font-size: 0.65rem;
+    font-size: 0.55rem;
     color: var(--color-text-muted);
-    opacity: 0.6;
-    transition: opacity 0.2s;
-}
-
-.concept-card:hover .interaction-hint {
-    opacity: 1;
+    opacity: 0.5;
 }
 
 /* Botón para Cerrar (Solo en estado expandido) */
 .close-btn {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 0.75rem;
+    right: 0.75rem;
     background: rgba(255, 255, 255, 0.1);
     border: none;
     color: var(--color-text-main);
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     line-height: 1;
     display: none;
     align-items: center;
@@ -264,7 +273,7 @@ body {
     background-color: #141720;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
     border-color: rgba(255, 255, 255, 0.3);
-    padding: 1.5rem;
+    padding: 1.25rem;
     animation: modalExpand 0.35s var(--transition-smooth) forwards;
 }
 
@@ -288,11 +297,11 @@ body {
 }
 
 .concept-card.expanded .concept-name {
-    font-size: 2rem;
+    font-size: 1.75rem;
 }
 
 .concept-card.expanded .concept-desc {
-    font-size: 1rem;
+    font-size: 0.95rem;
     white-space: normal;
 }
 
@@ -300,8 +309,52 @@ body {
     display: none;
 }
 
+/* Ajustes Específicos para Orientación Horizontal / Móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding: 0.3rem 0.5rem;
+    }
+
+    .app-header {
+        margin-bottom: 0.2rem;
+    }
+
+    .app-title {
+        font-size: 0.8rem;
+    }
+
+    .app-subtitle {
+        display: none; /* Ocultar subtítulo en landscape móvil para ganar área útil */
+    }
+
+    .grid-container {
+        gap: 0.3rem;
+        height: calc(100vh - 2.2rem);
+    }
+
+    .concept-card {
+        padding: 0.25rem 0.4rem;
+    }
+
+    .subsystem-tag {
+        font-size: 0.5rem;
+    }
+
+    .concept-name {
+        font-size: 0.65rem;
+    }
+
+    .concept-desc {
+        font-size: 0.55rem;
+    }
+
+    .interaction-hint {
+        display: none; /* Ocultar hint en landscape móvil */
+    }
+}
+
 /* Ajustes Responsive para Pantallas Más Grandes (Tablet & Desktop) */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (min-height: 501px) {
     body {
         padding: 1.25rem 2rem 1.5rem 2rem;
     }
@@ -311,11 +364,21 @@ body {
     }
 
     .app-title {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
 
     .app-subtitle {
         font-size: 0.85rem;
+    }
+
+    .fullscreen-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    .fullscreen-btn svg {
+        width: 18px;
+        height: 18px;
     }
 
     .grid-container {
@@ -333,7 +396,7 @@ body {
     }
 
     .concept-name {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
     }
 
     .concept-desc {
@@ -345,12 +408,12 @@ body {
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1200px) and (min-height: 501px) {
     .grid-container {
         gap: 1.25rem;
     }
 
     .concept-name {
-        font-size: 1.4rem;
+        font-size: 1.35rem;
     }
 }
