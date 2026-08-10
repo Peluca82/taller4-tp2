@@ -14,9 +14,12 @@
     --color-5: #f0f3f8; /* Texto principal */
     
     /* Subsistemas (Color Accent por bloque) */
-    --subsystem-1-accent: #ff4757; /* Bloque 1: Memoria, Herencia, Caducidad */
-    --subsystem-2-accent: #2ed573; /* Bloque 2: Identidad, Empatía, Colaboración */
-    --subsystem-3-accent: #1e90ff; /* Bloque 3: Incertidumbre, Ansiedad, Expectativa */
+    --subsystem-1-accent: #4f3676; /* Bloque 1: Memoria, Herencia, Caducidad */
+    --subsystem-2-accent: #8660af; /* Bloque 2: Identidad, Empatía, Colaboración */
+    --subsystem-3-accent: #c694d9; /* Bloque 3: Incertidumbre, Ansiedad, Expectativa */
+
+    /* Color dinámico para las figuras interactivas del canvas */
+    --shape-red-color: #8660af;
 
     /* Mapeo del Tema a los Elementos de la Interfaz */
     --bg-main: var(--color-1);
@@ -54,6 +57,7 @@ body {
     padding: 0.75rem 1.25rem 1.25rem 1.25rem;
     padding-left: max(1.25rem, env(safe-area-inset-left));
     padding-right: max(1.25rem, env(safe-area-inset-right));
+    padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
 }
 
 /* Header Compacto */
@@ -113,9 +117,10 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 0.4rem;
+    gap: 0.75rem;
     width: 100%;
-    height: calc(100vh - 3.2rem);
+    height: calc(100vh - 3.8rem);
+    max-height: calc(100vh - 3.8rem);
     max-width: 1200px;
     margin: 0 auto;
     flex: 1;
@@ -284,7 +289,7 @@ body {
     cursor: default;
     background-color: #141720;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-    border-color: rgba(255, 255, 255, 0.3);
+    border: none;
     padding: 1.25rem;
     display: flex;
     flex-direction: column;
@@ -357,7 +362,7 @@ body {
     }
 
     .grid-container {
-        gap: 0.3rem;
+        gap: 0.5rem;
         height: calc(100vh - 2.2rem);
     }
 

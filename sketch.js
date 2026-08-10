@@ -6,7 +6,7 @@ let sketchMemoria = function(p) {
     let userCircle = {
         x: 0,
         y: 0,
-        r: 65 // Radio del círculo principal
+        r: 35 // Radio inicial del círculo principal (proporcional)
     };
 
     // 4 figuras ocultas en las esquinas (Línea/Línea, Cuadrado, Círculo, Triángulo)
@@ -51,6 +51,9 @@ let sketchMemoria = function(p) {
         if (w === 0 || h === 0) return;
 
         p.resizeCanvas(w, h);
+
+        // Radio del círculo principal proporcional (aprox. 35px-45px según tamaño del canvas)
+        userCircle.r = p.min(w, h) * 0.09;
 
         maskGraphic = p.createGraphics(w, h);
         shapeGraphic = p.createGraphics(w, h);
@@ -147,24 +150,33 @@ let sketchMemoria = function(p) {
         drawOverlapIntersection();
     };
 
+    function getShapeColor() {
+        let style = getComputedStyle(document.documentElement);
+        return style.getPropertyValue('--shape-red-color').trim() || '#ff4757';
+    }
+
     function drawShapeOutline(pg, shape) {
+        let shapeColor = getShapeColor();
+        let c = p.color(shapeColor);
+        c.setAlpha(shape.alpha);
+
         pg.push();
         pg.translate(shape.x, shape.y);
         pg.rectMode(pg.CENTER);
         pg.ellipseMode(pg.CENTER);
         if (shape.type === 'square') {
             pg.noFill();
-            pg.stroke(255, 71, 87, shape.alpha);
+            pg.stroke(c);
             pg.strokeWeight(2);
             pg.rect(0, 0, shape.size, shape.size);
         } else if (shape.type === 'circle') {
             pg.noFill();
-            pg.stroke(255, 71, 87, shape.alpha);
+            pg.stroke(c);
             pg.strokeWeight(2);
             pg.ellipse(0, 0, shape.size, shape.size);
         } else if (shape.type === 'triangle') {
             pg.noFill();
-            pg.stroke(255, 71, 87, shape.alpha);
+            pg.stroke(c);
             pg.strokeWeight(2);
             let r = shape.size * 0.6;
             pg.triangle(
@@ -173,7 +185,7 @@ let sketchMemoria = function(p) {
                 r * 0.866, r * 0.5
             );
         } else if (shape.type === 'line') {
-            pg.stroke(255, 71, 87, shape.alpha);
+            pg.stroke(c);
             pg.strokeWeight(2);
             pg.line(-shape.size * 0.5, -shape.size * 0.5, shape.size * 0.5, shape.size * 0.5);
         }
@@ -181,12 +193,14 @@ let sketchMemoria = function(p) {
     }
 
     function drawShapeFilled(pg, shape) {
+        let shapeColor = getShapeColor();
+
         pg.push();
         pg.translate(shape.x, shape.y);
         pg.rectMode(pg.CENTER);
         pg.ellipseMode(pg.CENTER);
         pg.noStroke();
-        pg.fill(255, 71, 87); // Relleno Rojo de solapamiento
+        pg.fill(shapeColor); // Relleno tomado dinámicamente de la variable CSS
         if (shape.type === 'square') {
             pg.rect(0, 0, shape.size, shape.size);
         } else if (shape.type === 'circle') {
@@ -199,7 +213,7 @@ let sketchMemoria = function(p) {
                 r * 0.866, r * 0.5
             );
         } else if (shape.type === 'line') {
-            pg.stroke(255, 71, 87);
+            pg.stroke(shapeColor);
             pg.strokeWeight(4);
             pg.line(-shape.size * 0.5, -shape.size * 0.5, shape.size * 0.5, shape.size * 0.5);
         }
