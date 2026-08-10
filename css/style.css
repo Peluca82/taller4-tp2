@@ -4,18 +4,27 @@
    ========================================================================== */
 
 :root {
-    /* Paleta cromática para diseño multimedial */
-    --bg-main: #0a0b0e;
-    --bg-card: #12141a;
-    --bg-card-hover: #1a1d26;
-    
-    --color-text-main: #f0f3f8;
-    --color-text-muted: #8a92a3;
+    /* ==========================================================================
+       VARIABLES DE PALETA DE COLORES (Configurables)
+       ========================================================================== */
+    --color-1: #0a0b0e; /* Fondo principal oscuro neutro */
+    --color-2: #12141a; /* Fondo de tarjetas */
+    --color-3: #1a1d26; /* Fondo de tarjetas en hover */
+    --color-4: #8a92a3; /* Texto secundario / muted */
+    --color-5: #f0f3f8; /* Texto principal */
     
     /* Subsistemas (Color Accent por bloque) */
-    --subsystem-1-accent: #ff4757; /* Memoria, Herencia, Caducidad */
-    --subsystem-2-accent: #2ed573; /* Identidad, Empatía, Colaboración */
-    --subsystem-3-accent: #1e90ff; /* Incertidumbre, Ansiedad, Expectativa */
+    --subsystem-1-accent: #ff4757; /* Bloque 1: Memoria, Herencia, Caducidad */
+    --subsystem-2-accent: #2ed573; /* Bloque 2: Identidad, Empatía, Colaboración */
+    --subsystem-3-accent: #1e90ff; /* Bloque 3: Incertidumbre, Ansiedad, Expectativa */
+
+    /* Mapeo del Tema a los Elementos de la Interfaz */
+    --bg-main: var(--color-1);
+    --bg-card: var(--color-2);
+    --bg-card-hover: var(--color-3);
+    
+    --color-text-main: var(--color-5);
+    --color-text-muted: var(--color-4);
     
     --border-color: rgba(255, 255, 255, 0.08);
     --border-hover: rgba(255, 255, 255, 0.25);
@@ -42,7 +51,9 @@ body {
     font-family: var(--font-family);
     display: flex;
     flex-direction: column;
-    padding: 0.5rem 0.75rem 0.75rem 0.75rem;
+    padding: 0.75rem 1.25rem 1.25rem 1.25rem;
+    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
 }
 
 /* Header Compacto */
@@ -175,6 +186,7 @@ body {
     font-size: 0.75rem;
     font-weight: 600;
     line-height: 1.05;
+    color: var(--color-text-main);
 }
 
 .concept-desc {
@@ -209,7 +221,7 @@ body {
 .interaction-hint {
     font-size: 0.55rem;
     color: var(--color-text-muted);
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 /* Botón para Cerrar (Solo en estado expandido) */
@@ -274,6 +286,9 @@ body {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
     border-color: rgba(255, 255, 255, 0.3);
     padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     animation: modalExpand 0.35s var(--transition-smooth) forwards;
 }
 
@@ -309,10 +324,24 @@ body {
     display: none;
 }
 
+.concept-card.expanded .canvas-wrapper {
+    margin: 0.75rem 0;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+}
+
+/* Desactivar interacción directa en la miniatura de la grilla (solo visualización) */
+.concept-card:not(.expanded) .canvas-wrapper {
+    pointer-events: none;
+}
+
 /* Ajustes Específicos para Orientación Horizontal / Móviles */
 @media (max-height: 500px) and (orientation: landscape) {
     body {
-        padding: 0.3rem 0.5rem;
+        padding: 0.4rem 1.25rem 0.6rem 1.25rem;
+        padding-left: max(1.25rem, env(safe-area-inset-left));
+        padding-right: max(1.25rem, env(safe-area-inset-right));
     }
 
     .app-header {
