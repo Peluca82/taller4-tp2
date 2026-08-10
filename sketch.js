@@ -290,20 +290,25 @@ let sketchCaducidad = function(p) {
                 // =========================================================================
                 // MODO INTERACTIVO COMPLETO (Tarjeta Maximada / Expandida)
                 // =========================================================================
-                let sizeRatio = p.map(innerBall.r, innerBall.maxR, 3, 1.0, 1.75, true);
-                let baseSpeed = 0.8 * sizeRatio;
-                let maxSpeed = 1.8 * sizeRatio;
+                // Ajuste diferenciado de velocidad: Desktop vs Mobile
+                let isDesktop = window.matchMedia('(min-width: 768px) and (hover: hover)').matches;
+                let speedScale = isDesktop ? 2.5 : 1.1; // En Mobile va a 1.1x, en Desktop a 2.5x
+                let maxSpeedScale = isDesktop ? 4.5 : 2.0;
 
-                let noiseVel = p.noise(p.frameCount * 0.03) - 0.5;
-                let angleShift = noiseVel * 0.1;
+                let sizeRatio = p.map(innerBall.r, innerBall.maxR, 3, 1.0, 1.75, true);
+                let baseSpeed = speedScale * sizeRatio;
+                let maxSpeed = maxSpeedScale * sizeRatio;
+
+                let noiseVel = p.noise(p.frameCount * 0.04) - 0.5;
+                let angleShift = noiseVel * 0.12;
                 let currentSpeed = p.constrain(p.mag(innerBall.vx, innerBall.vy), baseSpeed, maxSpeed);
                 let currentAngle = p.atan2(innerBall.vy, innerBall.vx) + angleShift;
 
                 innerBall.vx = p.cos(currentAngle) * currentSpeed;
                 innerBall.vy = p.sin(currentAngle) * currentSpeed;
 
-                // Desvío suave (steering) antes de bordes del canvas
-                let canvasMargin = 30;
+                // --- Fuerza de desvío progresivo (steering) con mayor antelación para curvarse suavemente sin tocar la pared ---
+                let canvasMargin = 60;
                 if (innerBall.x < canvasMargin) innerBall.vx += (canvasMargin - innerBall.x) * 0.04;
                 if (innerBall.x > p.width - canvasMargin) innerBall.vx -= (innerBall.x - (p.width - canvasMargin)) * 0.04;
                 if (innerBall.y < canvasMargin) innerBall.vy += (canvasMargin - innerBall.y) * 0.04;
@@ -312,6 +317,7 @@ let sketchCaducidad = function(p) {
                 innerBall.x += innerBall.vx;
                 innerBall.y += innerBall.vy;
 
+                // Garantizar 100% que la bola NUNCA trascienda o sobresalga los límites del canvas
                 innerBall.x = p.constrain(innerBall.x, innerBall.r, p.width - innerBall.r);
                 innerBall.y = p.constrain(innerBall.y, innerBall.r, p.height - innerBall.r);
 
